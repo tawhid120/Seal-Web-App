@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: seal-web-app
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
