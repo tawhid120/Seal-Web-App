@@ -27,6 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from React build in production
+// Only register static middleware if build directory exists to avoid ENOENT errors
 const buildPath = path.join(__dirname, '../client/build');
 if (process.env.NODE_ENV === 'production') {
   if (fs.existsSync(buildPath)) {
