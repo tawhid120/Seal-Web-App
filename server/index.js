@@ -55,7 +55,12 @@ app.set('socketio', io);
 // Serve React app in production
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    const indexPath = path.join(__dirname, '../client/build/index.html');
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
+    } else {
+      res.status(503).send('Service temporarily unavailable. The application build is incomplete.');
+    }
   });
 }
 
