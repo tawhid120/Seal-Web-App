@@ -27,8 +27,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from React build in production
+const buildPath = path.join(__dirname, '../client/build');
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  if (fs.existsSync(buildPath)) {
+    app.use(express.static(buildPath));
+  }
 }
 
 // Ensure downloads directory exists
@@ -55,7 +58,7 @@ app.set('socketio', io);
 // Serve React app in production
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
-    const indexPath = path.join(__dirname, '../client/build/index.html');
+    const indexPath = path.join(buildPath, 'index.html');
     if (fs.existsSync(indexPath)) {
       res.sendFile(indexPath);
     } else {

@@ -2,7 +2,7 @@ services:
   - type: web
     name: seal-web-app
     runtime: node
-    buildCommand: pip install yt-dlp && npm install && npm run build
+    buildCommand: npm install && CI=false npm run build && (pip install yt-dlp || pip3 install yt-dlp || python3 -m pip install yt-dlp || echo "Warning: yt-dlp not installed, download features will be unavailable")
     startCommand: node server/index.js
     envVars:
       - key: NODE_ENV
