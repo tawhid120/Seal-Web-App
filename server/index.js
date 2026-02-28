@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'production') {
     if (fs.existsSync(indexPath)) {
       res.sendFile(indexPath);
     } else {
-      res.status(503).send('App is starting up. Please run "npm run build" to build the client, then restart the server.');
+      res.status(503).send('Service temporarily unavailable. The application build is incomplete.');
     }
   });
 }
